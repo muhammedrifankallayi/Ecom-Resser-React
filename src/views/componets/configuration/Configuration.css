@@ -1,0 +1,23 @@
+.card{
+    width: 100%;
+    padding: 5px;
+}
+
+.inner-card{
+    width: 50%;
+    float: right;
+}
+.inner-card h1{
+    padding: 2px 10px;
+    border-bottom: 1px solid #cccc;
+}
+
+.main-header{
+    display: flex;
+    column-gap: 3px;
+    align-items: center;
+border-bottom: 1px solid #cccc;
+padding: 10px;
+margin-bottom: 5px;
+font-weight: 700;
+}
