@@ -1,22 +1,7 @@
-/*!
 
-=========================================================
-* Argon Dashboard React - v1.2.4
-=========================================================
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// reactstrap components
 import {
   Button,
   Card,
@@ -31,8 +16,61 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { toast } from "react-hot-toast";
+import { apiEndPoints } from "services/apiEndpoints";
+import Axioscall from "services/axios";
+import { setLocalStorage } from "services/localStorage/localStorage";
+import { localStorageKeys } from "services/localStorage/constant";
+import { roleConstant } from "services/utilsConstant";
+import { errorMessage } from "services/utilsConstant";
+import { toastAction } from "services/toast";
+
+
+
+
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { type, value } = e.target;
+    console.log(type, "this is check 1", value);
+    setLoginData({
+      ...loginData,
+      [type]: value,
+    });
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await Axioscall("post", apiEndPoints.login, loginData, false);
+      if (response.status === 200) {
+        if (response.data.user.role === roleConstant.seller) {
+          setLocalStorage(localStorageKeys.token, response.data.token);
+          navigate("/admin/index");
+          toastAction(true, response.data.message);
+        } else {
+          toastAction(false, errorMessage.invalidCredentialMessage)
+        }
+        
+      } else {
+        toastAction(false, errorMessage.invalidCredentialMessage);
+      }
+    } catch (error) {
+
+    }
+  };
+
+  const disableButton = () => {
+    return loginData.email.trim() !== "" && loginData.password.trim() !== "";
+  }
+
   return (
     <>
       <Col lg="5" md="7">
@@ -82,7 +120,7 @@ const Login = () => {
             <div className="text-center text-muted mb-4">
               <small>Or sign in with credentials</small>
             </div>
-            <Form role="form">
+            <Form role="form" onSubmit={handleLogin}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -94,6 +132,7 @@ const Login = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    onChange={handleInputChange}
                   />
                 </InputGroup>
               </FormGroup>
@@ -108,6 +147,7 @@ const Login = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
+                    onChange={handleInputChange}
                   />
                 </InputGroup>
               </FormGroup>
@@ -125,7 +165,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4" color="primary" type="submit" disabled={!disableButton()}>
                   Sign in
                 </Button>
               </div>
