@@ -4,7 +4,7 @@
 }
 
 .inner-card{
-    width: 50%;
+    width: 100%;
     float: right;
 }
 .inner-card h1{
@@ -20,4 +20,18 @@ border-bottom: 1px solid #cccc;
 padding: 10px;
 margin-bottom: 5px;
 font-weight: 700;
+}
+
+.input-wraper{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 5px;
+}
+
+.bottom-footer{
+    width: 100%;
+    display: flex;
+    column-gap: 3px;
+    padding: 5px;
 }

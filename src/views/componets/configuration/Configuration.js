@@ -32,13 +32,16 @@ const Configuration = () => {
    <Header />
     <div className="card" >
     <div className="main-header" >
-     <i className="ni ni-settings-gear-65 text-blue" /> <span> Company Configuration</span>
+    <div> <i className="ni ni-settings-gear-65 text-blue" /> <span> Company Configuration</span></div>
       </div>
     <div className="inner-card">
       {/* <h2 className="text-first mb-4">Company Configuration</h2> */}
      
       <form onSubmit={handleSubmit} className="p-4 border rounded ">
-        <div className="mb-3">
+  <div  className="input-wraper" >
+
+
+  <div className="mb-3">
           <label htmlFor="companyName" className="form-label">
             Company Name
           </label>
@@ -53,9 +56,25 @@ const Configuration = () => {
           />
         </div>
 
+        
+  <div className="mb-3">
+          <label htmlFor="companyName" className="form-label">
+        Contact Number
+          </label>
+          <input
+            type="tel"      
+            id="companyName"
+            className="form-control"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            placeholder="Enter company name"
+            required
+          />
+        </div>
+
         <div className="mb-3">
           <label htmlFor="refundPolicy" className="form-label">
-            Refund Policy
+            Company Address
           </label>
           <textarea
             id="refundPolicy"
@@ -67,46 +86,30 @@ const Configuration = () => {
           />
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="logoUpload" className="form-label">
-            Company Logo
-          </label>
-          <input
-            type="file"
-            id="logoUpload"
-            className="form-control"
-            onChange={handleLogoUpload}
-          />
-          {logo && (
-            <div className="mt-3">
-              <img src={logo} alt="Logo Preview" className="img-thumbnail" width="150" />
-            </div>
-          )}
-        </div>
 
         <div className="mb-3">
-          <label htmlFor="bannerUpload" className="form-label">
-            Banners (Multiple)
+          <label htmlFor="refundPolicy" className="form-label">
+            Company Policy
           </label>
-          <input
-            type="file"
-            id="bannerUpload"
+          <textarea
+            id="refundPolicy"
             className="form-control"
-            multiple
-            onChange={handleBannerUpload}
+            rows="4"
+            value={refundPolicy}
+            onChange={(e) => setRefundPolicy(e.target.value)}
+            placeholder="Write refund policy here"
           />
-          <div className="mt-3 d-flex flex-wrap gap-2">
-            {banners.map((banner, idx) => (
-              <img
-                key={idx}
-                src={banner}
-                alt={`Banner Preview ${idx + 1}`}
-                className="img-thumbnail"
-                width="150"
-              />
-            ))}
-          </div>
         </div>
+
+  </div>
+
+<div  className="bottom-footer" >
+<button  className="btn btn-success w-100" >Add Company Logo</button>
+<button  className="btn btn-info w-100" >Add Company Banners</button>
+<button  className="btn btn-danger w-100" >Add Sub User</button>
+</div>
+
+       
 
         <button type="submit" className="btn btn-primary w-100">
           Save Configuration
