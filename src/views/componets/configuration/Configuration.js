@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Header from "components/Headers/Header";
 import './Configuration.css'
+import CompanyLogoAddModal from "views/popups/company-logo-add/Company-logo-add";
+import AddBannerModal from "views/popups/banner-add/AddBannerModal";
+
 
 const Configuration = () => {
   const [companyName, setCompanyName] = useState("");
@@ -8,17 +11,20 @@ const Configuration = () => {
   const [logo, setLogo] = useState(null);
   const [banners, setBanners] = useState([]);
 
-  const handleLogoUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setLogo(URL.createObjectURL(file)); 
-    }
-  };
 
-  const handleBannerUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setBanners(files.map((file) => URL.createObjectURL(file))); 
-  };
+  // Logo Modla Manage
+  const [isLogoAddModalOpen,setIsLogoAddModalOpen] = useState(false);
+  const handelOpenLogoAddModal = ()=> setIsLogoAddModalOpen(true);
+  const handleCloseLogoAddModal = () => setIsLogoAddModalOpen(false);
+
+
+  // BannerModal Manage
+
+  const [isOpenBannerAdd,setIsOpenBannerAdd] = useState(false);
+  const handleOpenBannerAdd = ()=> setIsOpenBannerAdd(true);
+  const handleCloseBannerAdd = () => setIsOpenBannerAdd(false);
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,10 +36,15 @@ const Configuration = () => {
    <>
    
    <Header />
+   
     <div className="card" >
+   
     <div className="main-header" >
     <div> <i className="ni ni-settings-gear-65 text-blue" /> <span> Company Configuration</span></div>
       </div>
+
+
+
     <div className="inner-card">
       {/* <h2 className="text-first mb-4">Company Configuration</h2> */}
      
@@ -104,9 +115,11 @@ const Configuration = () => {
   </div>
 
 <div  className="bottom-footer" >
-<button  className="btn btn-success w-100" >Add Company Logo</button>
-<button  className="btn btn-info w-100" >Add Company Banners</button>
-<button  className="btn btn-danger w-100" >Add Sub User</button>
+<CompanyLogoAddModal  className="jj" isOpen={isLogoAddModalOpen}  onClose={handleCloseLogoAddModal} />
+<AddBannerModal  isOpen={isOpenBannerAdd} onClose={handleCloseBannerAdd}  />
+<button  className="bt btn-success "   onClick={handelOpenLogoAddModal} >Add Company Logo</button>
+<button  className="bt btn-info " onClick={handleOpenBannerAdd} >Add Company Banners</button>
+<button  className="bt btn-danger " >Add Sub User</button>
 </div>
 
        
