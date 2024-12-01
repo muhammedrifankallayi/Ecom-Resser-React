@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Header from "components/Headers/Header";
 import './Configuration.css'
+import CompanyLogoAddModal from "views/popups/company-logo-add/Company-logo-add";
+import AddBannerModal from "views/popups/banner-add/AddBannerModal";
+
 
 const Configuration = () => {
   const [companyName, setCompanyName] = useState("");
@@ -8,17 +11,20 @@ const Configuration = () => {
   const [logo, setLogo] = useState(null);
   const [banners, setBanners] = useState([]);
 
-  const handleLogoUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setLogo(URL.createObjectURL(file)); 
-    }
-  };
 
-  const handleBannerUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setBanners(files.map((file) => URL.createObjectURL(file))); 
-  };
+  // Logo Modla Manage
+  const [isLogoAddModalOpen,setIsLogoAddModalOpen] = useState(false);
+  const handelOpenLogoAddModal = ()=> setIsLogoAddModalOpen(true);
+  const handleCloseLogoAddModal = () => setIsLogoAddModalOpen(false);
+
+
+  // BannerModal Manage
+
+  const [isOpenBannerAdd,setIsOpenBannerAdd] = useState(false);
+  const handleOpenBannerAdd = ()=> setIsOpenBannerAdd(true);
+  const handleCloseBannerAdd = () => setIsOpenBannerAdd(false);
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,15 +36,23 @@ const Configuration = () => {
    <>
    
    <Header />
+   
     <div className="card" >
+   
     <div className="main-header" >
-     <i className="ni ni-settings-gear-65 text-blue" /> <span> Company Configuration</span>
+    <div> <i className="ni ni-settings-gear-65 text-blue" /> <span> Company Configuration</span></div>
       </div>
+
+
+
     <div className="inner-card">
       {/* <h2 className="text-first mb-4">Company Configuration</h2> */}
      
       <form onSubmit={handleSubmit} className="p-4 border rounded ">
-        <div className="mb-3">
+  <div  className="input-wraper" >
+
+
+  <div className="mb-3">
           <label htmlFor="companyName" className="form-label">
             Company Name
           </label>
@@ -53,9 +67,25 @@ const Configuration = () => {
           />
         </div>
 
+        
+  <div className="mb-3">
+          <label htmlFor="companyName" className="form-label">
+        Contact Number
+          </label>
+          <input
+            type="tel"      
+            id="companyName"
+            className="form-control"
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            placeholder="Enter company name"
+            required
+          />
+        </div>
+
         <div className="mb-3">
           <label htmlFor="refundPolicy" className="form-label">
-            Refund Policy
+            Company Address
           </label>
           <textarea
             id="refundPolicy"
@@ -67,46 +97,32 @@ const Configuration = () => {
           />
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="logoUpload" className="form-label">
-            Company Logo
-          </label>
-          <input
-            type="file"
-            id="logoUpload"
-            className="form-control"
-            onChange={handleLogoUpload}
-          />
-          {logo && (
-            <div className="mt-3">
-              <img src={logo} alt="Logo Preview" className="img-thumbnail" width="150" />
-            </div>
-          )}
-        </div>
 
         <div className="mb-3">
-          <label htmlFor="bannerUpload" className="form-label">
-            Banners (Multiple)
+          <label htmlFor="refundPolicy" className="form-label">
+            Company Policy
           </label>
-          <input
-            type="file"
-            id="bannerUpload"
+          <textarea
+            id="refundPolicy"
             className="form-control"
-            multiple
-            onChange={handleBannerUpload}
+            rows="4"
+            value={refundPolicy}
+            onChange={(e) => setRefundPolicy(e.target.value)}
+            placeholder="Write refund policy here"
           />
-          <div className="mt-3 d-flex flex-wrap gap-2">
-            {banners.map((banner, idx) => (
-              <img
-                key={idx}
-                src={banner}
-                alt={`Banner Preview ${idx + 1}`}
-                className="img-thumbnail"
-                width="150"
-              />
-            ))}
-          </div>
         </div>
+
+  </div>
+
+<div  className="bottom-footer" >
+<CompanyLogoAddModal  className="jj" isOpen={isLogoAddModalOpen}  onClose={handleCloseLogoAddModal} />
+<AddBannerModal  isOpen={isOpenBannerAdd} onClose={handleCloseBannerAdd}  />
+<button  className="bt btn-success "   onClick={handelOpenLogoAddModal} >Add Company Logo</button>
+<button  className="bt btn-info " onClick={handleOpenBannerAdd} >Add Company Banners</button>
+<button  className="bt btn-danger " >Add Sub User</button>
+</div>
+
+       
 
         <button type="submit" className="btn btn-primary w-100">
           Save Configuration

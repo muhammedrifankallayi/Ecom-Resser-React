@@ -8,6 +8,7 @@ import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import Configuration from "views/componets/configuration/Configuration";
 import CategoryList from "views/componets/category/Category";
+import Products from "views/componets/products/Products";
 
 var routes = [
   {
@@ -36,6 +37,13 @@ var routes = [
     name: "Category",
     icon: "ni ni-books text-blue",
     component: <CategoryList />,
+    layout: "/admin",
+  },
+  {
+    path: "/products",
+    name: "Products",
+    icon: "ni ni-books text-blue",
+    component: <Products />,
     layout: "/admin",
   },
   {

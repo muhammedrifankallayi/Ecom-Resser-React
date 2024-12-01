@@ -4,7 +4,7 @@
 }
 
 .inner-card{
-    width: 50%;
+    width: 100%;
     float: right;
 }
 .inner-card h1{
@@ -21,3 +21,37 @@ padding: 10px;
 margin-bottom: 5px;
 font-weight: 700;
 }
+
+.input-wraper{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 5px;
+}
+
+.bottom-footer{
+    width: 100%;
+    display: flex;
+    column-gap: 3px;
+    padding: 5px;
+    position: relative;
+    z-index: 1;
+}
+
+
+
+.bt {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.375rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, 
+                border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
