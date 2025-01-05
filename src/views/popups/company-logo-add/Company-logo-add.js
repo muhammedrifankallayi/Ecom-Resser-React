@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Company-logo-add.css";
 
-const CompanyLogoAddModal = ({ isOpen, onClose }) => {
+const CompanyLogoAddModal = ({ isOpen, onClose, onSave }) => {
   const [logo, setLogo] = useState(null);
 
   const handleLogoChange = (e) => {
@@ -11,6 +11,11 @@ const CompanyLogoAddModal = ({ isOpen, onClose }) => {
       reader.onload = (event) => setLogo(event.target.result);
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleSave = () => {
+    onSave(logo);
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -31,7 +36,7 @@ const CompanyLogoAddModal = ({ isOpen, onClose }) => {
           <input type="file" accept="image/*" onChange={handleLogoChange} />
         </div>
         <div className="form-actions">
-          <button className="btn-save" onClick={() => alert("Logo Saved!")}>
+          <button className="btn-save" onClick={handleSave}>
             Save
           </button>
           <button className="btn-cancel" onClick={onClose}>

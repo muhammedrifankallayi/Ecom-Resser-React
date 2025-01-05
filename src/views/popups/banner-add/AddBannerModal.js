@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AddBannerModal.css";
 
-const AddBannerModal = ({ isOpen, onClose, onAddBanners }) => {
+const AddBannerModal = ({ isOpen, onClose, onSave }) => {
   const [banners, setBanners] = useState([]);
 
   const handleBannerChange = (e) => {
@@ -21,9 +21,9 @@ const AddBannerModal = ({ isOpen, onClose, onAddBanners }) => {
 
   const handleSave = () => {
     if (banners.length > 0) {
-      onAddBanners(banners);
       setBanners([]);
       onClose();
+      onSave(banners)
     } else {
       alert("Please upload at least one banner!");
     }

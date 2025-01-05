@@ -9,6 +9,10 @@ import Icons from "views/examples/Icons.js";
 import Configuration from "views/componets/configuration/Configuration";
 import CategoryList from "views/componets/category/Category";
 import Products from "views/componets/products/Products";
+import BrandList from "views/componets/brand/Brand";
+import ProductInformationForm from "views/componets/create-product/CreateProduct";
+import StoreList from "views/componets/store/Store";
+
 
 var routes = [
   {
@@ -18,13 +22,7 @@ var routes = [
     component: <Index />,
     layout: "/admin",
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: <Icons />,
-    layout: "/admin",
-  },
+
   {
     path: "/configuration",
     name: "Configurations",
@@ -44,6 +42,36 @@ var routes = [
     name: "Products",
     icon: "ni ni-books text-blue",
     component: <Products />,
+    layout: "/admin",
+  },
+  {
+    path: "/create-products",
+    name: "Create Products",
+    icon: "ni ni-fat-add text-blue",
+    component: <ProductInformationForm />,
+    layout: "/admin",
+  },
+  {
+    path: "/store",
+    name: "Stores",
+    icon: "ni ni-fat-add text-blue",
+    component: <StoreList />,
+    layout: "/admin",
+  },
+
+  {
+    path: "/brand",
+    name: "Brand",
+    icon: "ni ni-planet text-blue",
+    component: <BrandList/>,
+    layout: "/admin",
+  },
+
+  {
+    path: "/icons",
+    name: "Icons",
+    icon: "ni ni-planet text-blue",
+    component: <Icons />,
     layout: "/admin",
   },
   {

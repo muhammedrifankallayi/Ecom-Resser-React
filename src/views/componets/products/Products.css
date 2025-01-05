@@ -5,3 +5,37 @@
     align-items: center;
    
 }
+
+.input-wraper{
+    width: 100%;
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+}
+
+.main-input{
+    width: 100%;
+}
+
+
+.modal-content{
+    width: 800px;
+}
+
+
+.input-wraper-top{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.img-container{
+    flex: 1;
+   border: 1px dashed #cccc;
+   min-height: 200px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
