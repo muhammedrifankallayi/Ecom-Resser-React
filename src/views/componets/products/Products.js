@@ -9,6 +9,10 @@ import Select from "react-select";
 import './Products.css'
 
 function Products() {
+
+
+const mainFormData = new FormData()
+
   const [show, setShow] = useState(false);
   const [isEditing, setIsEditing] = useState(false); // Track if editing
   const [editId, setEditId] = useState(null); // ID of reseller being edited
@@ -25,7 +29,7 @@ function Products() {
     discountedPrice: 0,
     subCategory: "",
     isActive: true,
-    image: [],
+    files: [],
     brand:"",
     description:"",
     store:""
@@ -42,7 +46,7 @@ function Products() {
       discountedPrice: 0,
       subCategory: "",
       isActive: true,
-      image: [],
+      files: [],
       brand:"",
       description:"",
       store:""
@@ -60,23 +64,7 @@ function Products() {
     setFormData({ ...formData, [actionMeta.name]: selectedOption.value });
   };
 
-  const handleSubmit = async () => {
-    try {
-      if (false) {
-        const response = await Axioscall("put", `store/${editId}`, formData, true);
-        toast.success(response.data.message)
-      } else {
-       
-  
 
-      }
-      resetForm();
-      getProducts();
-      handleClose();
-    } catch (error) {
-      console.error("Error in submit:", error);
-    }
-  };
 
   const getProducts = async () => {
     try {
@@ -103,7 +91,7 @@ function Products() {
       email: item.email,
       phone_number: item.phone_number,
       role: "seller",
-      image: null,
+      files: null,
     });
     setEditId(item._id);
     setIsEditing(true);
@@ -128,10 +116,11 @@ function Products() {
   const handleImageChange = (e) => {
     const files = e.target.files;
     if (files.length > 0) {
+
       const imageURLs = Array.from(files).map(file => URL.createObjectURL(file)); // Create URLs for the selected files
       setFormData({
         ...formData,
-        image: imageURLs,
+        files: imageURLs,
       });
     }
   };
@@ -175,12 +164,10 @@ function Products() {
     const submit  = async()=> {
       try {
          try {
-          const form = new FormData();
+         
         
-          form.append("files",JSON.stringify(formData.image));
-          form.append("data", JSON.stringify(formData));
           
-          const response = await Axioscall("post", "/product", form, true).then((res)=>{
+          const response = await Axioscall("post", "/product", formData, true).then((res)=>{
 
             toast.success("Saved Successfull")
             resetForm();
@@ -292,14 +279,14 @@ function Products() {
         
        <div  className="input-wraper" >
         <div className="img-container">
-       {formData.image && formData.image.length > 0 ? (
+       {formData.files && formData.files.length > 0 ? (
           <img
-            src={formData.image[0]} // Show the first image for preview
+            src={formData.files[0]} // Show the first files for preview
             alt="Selected Preview"
             style={{ width: "200px", height: "auto", borderRadius: "8px" }}
           />
         ) : (
-          <span>Product Image</span>
+          <span>Product files</span>
         )}
        </div>
     <div   className="input-wraper-top" >
@@ -327,11 +314,11 @@ function Products() {
               />
             </Form.Group>
 
-            <Form.Group controlId="image" className="main-input">
+            <Form.Group controlId="files" className="main-input">
         <Form.Label>Product Images</Form.Label>
         <Form.Control
           type="file"
-          name="image"
+          name="files"
           accept="image/*" // Only allows image files
           multiple // Allow multiple file selection
           onChange={handleImageChange}
