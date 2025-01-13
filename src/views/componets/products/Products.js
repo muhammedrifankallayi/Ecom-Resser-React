@@ -11,7 +11,6 @@ import './Products.css'
 function Products() {
 
 
-const mainFormData = new FormData()
 
   const [show, setShow] = useState(false);
   const [isEditing, setIsEditing] = useState(false); // Track if editing
@@ -116,11 +115,9 @@ const mainFormData = new FormData()
   const handleImageChange = (e) => {
     const files = e.target.files;
     if (files.length > 0) {
-
-      const imageURLs = Array.from(files).map(file => URL.createObjectURL(file)); // Create URLs for the selected files
       setFormData({
         ...formData,
-        files: imageURLs,
+        files: Array.from(files), // Store the actual file objects
       });
     }
   };
@@ -164,11 +161,17 @@ const mainFormData = new FormData()
     const submit  = async()=> {
       try {
          try {
-         
-        
-          
-          const response = await Axioscall("post", "/product", formData, true).then((res)=>{
-
+         const formDataData = new FormData();
+         Object.keys(formData).forEach((key) => {
+           if (key === "files") {
+             formData[key].forEach((file) => {
+               formDataData.append("files", file);
+             });
+           } else {
+             formDataData.append(key, formData[key]);
+           }
+         });
+          const response = await Axioscall("post", "/product", formDataData, true).then((res)=>{
             toast.success("Saved Successfull")
             resetForm();
             getProducts();
