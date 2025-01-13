@@ -19,6 +19,7 @@ function Products() {
   const [brands, setBrands] = useState([])
   const [stores, setStores] = useState([])
   const [subcategories, setSubcategories] = useState([]);
+  const [previewImg,setPreviewImg]=  useState('');
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -114,7 +115,10 @@ function Products() {
 
   const handleImageChange = (e) => {
     const files = e.target.files;
+    console.log(files,"OPPP");
+    
     if (files.length > 0) {
+      setPreviewImg(URL.createObjectURL(files[0])) ;
       setFormData({
         ...formData,
         files: Array.from(files), // Store the actual file objects
@@ -240,9 +244,9 @@ function Products() {
                         <td>{item?.wholesalePrice}</td>
                         <td>{item?.retailPrice}</td>
                         <td>{item?.discountedPrice}</td>
-                        <td>{item?.subCategory?.subCategory}</td>
-                        <td>{item?.brand?.brand}</td>
-                        <td>{item?.store?.store}</td>
+                        <td>{item?.subCategory[0]?.subCategory}</td>
+                        <td>{item?.brand[0]?.brand}</td>
+                        <td>{item?.store[0]?.store}</td>
                         <td>
                           <span
                             className={`badge ${
@@ -282,9 +286,9 @@ function Products() {
         
        <div  className="input-wraper" >
         <div className="img-container">
-       {formData.files && formData.files.length > 0 ? (
+       {previewImg ? (
           <img
-            src={formData.files[0]} // Show the first files for preview
+            src={previewImg} // Show the first files for preview
             alt="Selected Preview"
             style={{ width: "200px", height: "auto", borderRadius: "8px" }}
           />

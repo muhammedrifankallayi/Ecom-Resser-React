@@ -39,3 +39,14 @@
    align-items: center;
 }
 
+.table-responsive{
+    max-height: calc(100vh - 360px);
+    overflow: auto;
+}
+
+.table thead{
+    position: sticky;
+    top: -1px;
+    background-color: white;
+    z-index: 99;
+}
