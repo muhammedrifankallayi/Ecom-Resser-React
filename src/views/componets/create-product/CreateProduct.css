@@ -1,0 +1,23 @@
+
+
+.top-group{
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    width: 300px;
+    div,input{
+        width: 100%;
+    }
+}
+
+.top-wrapper{
+    width: 100%;
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+}
+
+input{
+    border: 1px solid #cccc;
+    border-radius: 4px;
+}
