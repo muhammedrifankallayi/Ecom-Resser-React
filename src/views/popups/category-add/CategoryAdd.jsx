@@ -19,9 +19,8 @@ const AddSubCategoryModal = ({isOpen,onClose}) => {
     },[])
 
 const getAllCategory = async() => {
- await Axioscall("get", "/mainCategory",null,true).then((res) => {
-    setMainCategoryList(res.data.data)
-     
+ await Axioscall("get", "/seller/mainCategory", null, true).then((res) => {
+   setMainCategoryList(res.data.data);
  });
 }
 
@@ -31,11 +30,16 @@ const getAllCategory = async() => {
 
   const handleSave = async() => {
    
-   await Axioscall("post", "/subCategory",{subCategory:category,categoryId:mainCategory},true).then((res) => {
-        if(res.data.success){
-            toast.success("saved successfully");
-            onClose()
-        }
+   await Axioscall(
+     "post",
+     "/seller/subCategory",
+     { subCategory: category, categoryId: mainCategory },
+     true
+   ).then((res) => {
+     if (res.data.success) {
+       toast.success("saved successfully");
+       onClose();
+     }
    });
     setShow(false);
   };

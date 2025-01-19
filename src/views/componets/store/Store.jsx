@@ -43,11 +43,21 @@ function StoreList() {
   const handleSubmit = async () => {
     try {
       if (isEditing) {
-        const response = await Axioscall("put", `store/${editId}`, formData, true);
+        const response = await Axioscall(
+          "put",
+          `/seller/store/${editId}`,
+          formData,
+          true
+        );
         toast.success(response.data.message)
       } else {
         // Add new reseller
-        const response = await Axioscall("post", "/store", formData, true);
+        const response = await Axioscall(
+          "post",
+          "/seller/store",
+          formData,
+          true
+        );
       
         toast.success(response.data.message)
 
@@ -62,7 +72,7 @@ function StoreList() {
 
   const getStore = async () => {
     try {
-      let data = await Axioscall("get", "/store", null, true);
+      let data = await Axioscall("get", "/seller/store", null, true);
       console.log(data.data.data, "Store...");
       setStore(data.data.data);
     } catch (error) {
@@ -93,7 +103,12 @@ function StoreList() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await Axioscall("put", `store/${id}`, {action:"delete"}, true);
+      const response = await Axioscall(
+        "put",
+        `/seller/store/${id}`,
+        { action: "delete" },
+        true
+      );
       console.log(response, "Delete Response...");
       // setStore(Store.filter((sub) => sub._id !== id));
       

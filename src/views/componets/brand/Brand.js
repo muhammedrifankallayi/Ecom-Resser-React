@@ -21,9 +21,9 @@ const BrandList = ()=>{
     }
 
   const  GetAllBrands = async()=>{
-        await Axioscall("get", "/brand",null,true).then((res) => {
-            setBrands(res.data.data)
-        })
+        await Axioscall("get", "/seller/brand", null, true).then((res) => {
+          setBrands(res.data.data);
+        });
     }
 
     

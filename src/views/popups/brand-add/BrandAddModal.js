@@ -19,9 +19,9 @@ const AddBrandModal = ({onClose,data}) => {
     },[])
 
 const getAllCategory = async() => {
- await Axioscall("get", "/subCategory",null,true).then((res) => {
-  setCategoryList(res.data.data)
- })
+ await Axioscall("get", "/seller/subCategory", null, true).then((res) => {
+   setCategoryList(res.data.data);
+ });
 }
 
 
@@ -30,12 +30,17 @@ const getAllCategory = async() => {
 
   const handleSave = async() => {
 
-   await Axioscall("post", "/brand",{brand:brandName,category:category},true).then((res) => {
-        if(res.data.success){
-            toast.success("saved successfully");
-            onClose()
-        }
-      });
+   await Axioscall(
+     "post",
+     "/seller/brand",
+     { brand: brandName, category: category },
+     true
+   ).then((res) => {
+     if (res.data.success) {
+       toast.success("saved successfully");
+       onClose();
+     }
+   });
     setShow(false);
   };
 

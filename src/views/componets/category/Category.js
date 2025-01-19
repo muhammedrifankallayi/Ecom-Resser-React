@@ -22,9 +22,9 @@ const CategoryList = () => {
 
 
  const getAllSubCategory = async() => {
-   await  Axioscall("get", "/subCategory",null,true).then((res) => {
-        setSubcategories(res.data.data)
-   })
+   await Axioscall("get", "/seller/subCategory", null, true).then((res) => {
+     setSubcategories(res.data.data);
+   });
   }
 
   return (

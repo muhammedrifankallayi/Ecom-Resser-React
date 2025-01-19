@@ -1,6 +1,6 @@
 import axios from "axios";
 // let Baseurl = import.meta.env.VITE_API_URL;
-let Baseurl='http://localhost:4001/api/seller'
+let Baseurl='http://localhost:4001/api'
 export default async function Axioscall(method, endpoint, datalist, header) {
   try {
     let base_url = Baseurl + endpoint;

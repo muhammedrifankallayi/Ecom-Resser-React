@@ -68,7 +68,7 @@ function Products() {
 
   const getProducts = async () => {
     try {
-      let data = await Axioscall("get", "/product", null, true);
+      let data = await Axioscall("post", "/general/products", null, true);
       console.log(data.data.data, "Products...");
       setProducts(data.data.data);
     } catch (error) {
@@ -100,7 +100,12 @@ function Products() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await Axioscall("put", `store/${id}`, {action:"delete"}, true);
+      const response = await Axioscall(
+        "put",
+        `/seller/store/${id}`,
+        { action: "delete" },
+        true
+      );
       console.log(response, "Delete Response...");
       // setProducts(Products.filter((sub) => sub._id !== id));
       
@@ -139,20 +144,20 @@ function Products() {
 
 
   const  GetAllBrands = async()=>{
-        await Axioscall("get", "/brand",null,true).then((res) => {
-            setBrands(res.data.data)
-        })
+        await Axioscall("get", "/seller/brand", null, true).then((res) => {
+          setBrands(res.data.data);
+        });
     }
 
     const getAllSubCategory = async() => {
-      await  Axioscall("get", "/subCategory",null,true).then((res) => {
-           setSubcategories(res.data.data)
-      })
+      await Axioscall("get", "/seller/subCategory", null, true).then((res) => {
+        setSubcategories(res.data.data);
+      });
      }
 
        const getStore = async () => {
          try {
-           let data = await Axioscall("get", "/store", null, true);
+           let data = await Axioscall("get", "/seller/store", null, true);
            console.log(data.data.data, "Store...");
            setStores(data.data.data);
          } catch (error) {
@@ -175,13 +180,18 @@ function Products() {
              formDataData.append(key, formData[key]);
            }
          });
-          const response = await Axioscall("post", "/product", formDataData, true).then((res)=>{
-            toast.success("Saved Successfull")
+          const response = await Axioscall(
+            "post",
+            "/general/product",
+            formDataData,
+            true
+          ).then((res) => {
+            toast.success("Saved Successfull");
             resetForm();
             getProducts();
             handleClose();
             console.log(formData);
-          })
+          });
          
           
   
